@@ -1,6 +1,39 @@
 #donnée insee mobilités professionnelles:
 
+
+
+###################################################
+############# QUELQUES STATS DE BASE ##############
+###################################################
+
+
+
 select count (*) from population.mobilites_professionnelles_insee_2015 where metrodom = 'D' AND REGION in ('01','02','03','04') AND REGLT in ('01','02','03','04');
 
 >>> résultat 837 (nb de personnes qui vivent en outremer mais ont déclaré un boulot ailleurs, que ce soit en métropole ou à l'étranger)
+
+
+select trans, count (*) from population.mobilites_professionnelles_insee_2015 where metrodom = 'D' AND REGION in ('01','02','03','04') AND REGLT in ('01','02','03','04') group by trans;
+
+>>> pour connaitre le nombre de personne qui favorise tel ou tel mode de transport plutot qu'un autre. 6961 qui n'ont pas de transport à prévoir (probablement artisans, indépendants ce genre de profils), 14937 qui vont à pied, 7561 qui utilisent un deux roues, 171280 qui utilisent la voiture, 12757 qui utilisent les transports en commun.
+
+select ilt, count (*) from population.mobilites_professionnelles_insee_2015 where metrodom = 'D' AND REGION in ('01','02','03','04') AND REGLT in ('01','02','03','04') group by ilt;
+
+>>> 116843 personnes travaillant sur la commune du lieu de résidence, 96175 travaillant dans une commune du département de résidence, 478 travaillant dans un autre DOM
+
+select dipl_15, count (*) from population.mobilites_professionnelles_insee_2015 where metrodom = 'D' AND REGION in ('01','02','03','04') AND REGLT in ('01','02','03','04') and ilt = '1' group by dipl_15;
+
+select dipl_15, count (*) from population.mobilites_professionnelles_insee_2015 where metrodom = 'D' AND REGION in ('01','02','03','04') AND REGLT in ('01','02','03','04') and ilt = '2' group by dipl_15;
+
+>>> moins on est diplomé moins on est susceptible d'aller travailler loin de chez soi.
+
+select cs1, count (*) from population.mobilites_professionnelles_insee_2015 where metrodom = 'D' AND REGION in ('01','02','03','04') AND REGLT in ('01','02','03','04') and ilt = '2' group by cs1;
+
+>>> catégories socio-professionnelles des personnes qui travaillent hors de leur commune de résidence (ce sont majoritairement des employés et prof. intermédiaires).
+
+
+###################################################
+############# ANALYSES GEOGRAPHIQUES ##############
+###################################################
+
 
